@@ -2,7 +2,11 @@
     "development": {
       "username": "postgres",
       "password": null,
+<<<<<<< HEAD
       "database": "carddy",
+=======
+      "database": "ecommy",
+>>>>>>> 459b8d3 (feat: project set up)
       "host": "127.0.0.1",
       "dialect": "postgres"
     },
