@@ -1,15 +1,15 @@
 import cors from 'cors';
-// import cartRouter from './cart-routes';
-// import cardRouter from './card-routes';
+import cardRouter from './card-routes';
 // import addressesRouter from './addresses-routes';
 // import billingRouter from './billing-routes';
-// import categoryRouter from './category-routes';
+import categoryRouter from './category-routes';
 // import orderRouter from './order-routes';
 import userRouter from './user-routes.js';
 
 export default (app) => {
     app.use(cors());
-    app.use('/api/v1/user', userRouter)
+    app.use('/api/v1', userRouter)
+    app.use('/api/v1/categories', categoryRouter)
     app.get('/', (req, res) => {
         res.json({ mesage: 'Welcome to ecommy' })
     })
