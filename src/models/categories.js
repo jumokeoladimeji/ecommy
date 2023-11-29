@@ -12,10 +12,19 @@ export default (sequelize, DataTypes) => {
         foreignKey: 'category_id',
         as: 'cards'
       });
+      this.hasMany(models.CardOrderDetails, {
+        foreignKey: 'category_id',
+        as: 'category_order_details'
+      });
     }
   };
   Categories.init({
-    name: DataTypes.TEXT
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+    },
+    name: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Categories',

@@ -1,7 +1,7 @@
 import { Model } from 'sequelize';
 
 export default (sequelize, DataTypes) => {
-  class orders extends Model {
+  class Orders extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -26,19 +26,24 @@ export default (sequelize, DataTypes) => {
       });
     }
   };
-  orders.init({
+  Orders.init({
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+    },
     expected_time_of_delivery: DataTypes.DATE,
-    status: DataTypes.TEXT,
+    status: DataTypes.STRING,
     confirm_delivery: DataTypes.BOOLEAN,
-    bill: DataTypes.TEXT,
-    customized_message: DataTypes.TEXT,
-    shipping_phone_number: DataTypes.TEXT,
+    bill: DataTypes.STRING,
+    customized_message: DataTypes.STRING,
+    shipping_phone_number: DataTypes.STRING,
     payment_id: DataTypes.INTEGER,
     stripe_charge_id: DataTypes.INTEGER,
-    extra_notes: DataTypes.TEXT
+    extra_notes: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'orders',
+    modelName: 'Orders',
   });
-  return orders;
+  return Orders;
 };

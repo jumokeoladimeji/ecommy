@@ -15,11 +15,16 @@ export default (sequelize, DataTypes) => {
     }
   };
   BillingInfo.init({
-    card_type: DataTypes.TEXT,
-    provider: DataTypes.TEXT,
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+    },
+    card_type: DataTypes.STRING,
+    provider: DataTypes.STRING,
     card_no: DataTypes.INTEGER,
     cvv: DataTypes.INTEGER,
-    exp_month: DataTypes.TEXT,
+    exp_month: DataTypes.STRING,
     exp_year: DataTypes.INTEGER,
   }, {
     sequelize,

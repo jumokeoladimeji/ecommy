@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require('uuid');
+
 export default {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('BillingInfos', {
@@ -5,7 +7,7 @@ export default {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV1
+        defaultValue: uuidv4(),
       },
       user_id: {
         type: Sequelize.UUID,
@@ -15,10 +17,10 @@ export default {
         onDelete: 'CASCADE',
       },
       card_type: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       provider: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       card_no: {
         type: Sequelize.INTEGER
@@ -27,7 +29,7 @@ export default {
         type: Sequelize.INTEGER
       },
       exp_month: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       exp_year: {
         type: Sequelize.INTEGER

@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require('uuid');
+
 export default {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Addresses', {
@@ -5,7 +7,7 @@ export default {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV1
+        defaultValue: uuidv4(),
       },
       user_id: {
         type: Sequelize.UUID,
@@ -15,28 +17,28 @@ export default {
         onDelete: 'CASCADE',
       },
       address1: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       address2: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       city: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       state: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       zip: {
         type: Sequelize.INTEGER
       },
       country: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       first_name: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       last_name: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

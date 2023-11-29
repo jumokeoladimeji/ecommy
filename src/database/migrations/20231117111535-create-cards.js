@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require('uuid');
+
 export default {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Cards', {
@@ -5,7 +7,7 @@ export default {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV1
+        defaultValue: uuidv4(),
       },
       category_id: {
         type: Sequelize.UUID,
@@ -15,16 +17,25 @@ export default {
         onDelete: 'CASCADE',
       },
       title: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       price: {
         type: Sequelize.INTEGER
       },
       img_url: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
+      },
+      front_img_url: {
+        type: Sequelize.STRING
+      },
+      side_img_url: {
+        type: Sequelize.STRING
+      },
+      back_img_url: {
+        type: Sequelize.STRING
       },
       description: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       available_quantity: {
         type: Sequelize.INTEGER

@@ -1,16 +1,18 @@
+const { v4: uuidv4 } = require('uuid');
+
 export default {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('cardOrderDetails', {
+    await queryInterface.createTable('CardOrderDetails', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV1
+        defaultValue: uuidv4(),
       },
       quantity: {
         type: Sequelize.INTEGER
       },
-      card_id: {
+      category_id: {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
@@ -25,7 +27,7 @@ export default {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: 'orders', 
+          model: 'Orders', 
           key: 'id', 
           as: 'order_id'
         },
@@ -45,6 +47,6 @@ export default {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('cardOrderDetails');
+    await queryInterface.dropTable('CardOrderDetails');
   }
 };

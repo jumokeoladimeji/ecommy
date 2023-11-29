@@ -12,21 +12,26 @@ export default (sequelize, DataTypes) => {
         foreignKey: 'user_id',
         as: 'user'
       });
-      this.hasMany(models.orders, {
+      this.hasMany(models.Orders, {
         foreignKey: 'address_id',
         as: 'orders'
     });
     }
   };
   Addresses.init({
-    address1: DataTypes.TEXT,
-    address2: DataTypes.TEXT,
-    city: DataTypes.TEXT,
-    state: DataTypes.TEXT,
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+    },
+    address1: DataTypes.STRING,
+    address2: DataTypes.STRING,
+    city: DataTypes.STRING,
+    state: DataTypes.STRING,
     zip: DataTypes.NUMBER,
-    country: DataTypes.TEXT,
-    first_name: DataTypes.TEXT,
-    last_name: DataTypes.TEXT
+    country: DataTypes.STRING,
+    first_name: DataTypes.STRING,
+    last_name: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Addresses',

@@ -1,40 +1,43 @@
+const { v4: uuidv4 } = require('uuid');
+
 export default {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Users', {
       id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
+        allowNull: false,
         primaryKey: true,
+        type: Sequelize.UUID,
+        defaultValue: uuidv4(),
       },
       username: {
         allowNull: false,
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       name: {
         allowNull: false,
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       role: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
         defaultValue: 'user'
       },
       email: {
         allowNull: false,
         unique: true,
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       phone_number: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       image_url: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       password: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       isVerified: {
         type: Sequelize.BOOLEAN,
-        defaultValue: 'false'
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,

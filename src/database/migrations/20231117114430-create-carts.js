@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require('uuid');
+
 export default {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Carts', {
@@ -5,7 +7,7 @@ export default {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV1
+        defaultValue: uuidv4(),
       },
       user_id: {
         type: Sequelize.UUID,

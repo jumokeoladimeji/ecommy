@@ -12,13 +12,18 @@ export default (sequelize, DataTypes) => {
         foreignKey: 'card_id',
         as: 'card'
       });
-      this.belongsTo(models.orders, {
+      this.belongsTo(models.Orders, {
         foreignKey: 'order_id',
         as: 'order'
       });
     }
   };
   CardOrderDetails.init({
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+    },
     quantity: DataTypes.INTEGER,
   }, {
     sequelize,

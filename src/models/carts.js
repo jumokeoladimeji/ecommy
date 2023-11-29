@@ -19,6 +19,11 @@ export default (sequelize, DataTypes) => {
     }
   };
   Carts.init({
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+    },
     bill: DataTypes.INTEGER
   }, {
     sequelize,

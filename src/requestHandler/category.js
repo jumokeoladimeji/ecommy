@@ -3,7 +3,7 @@ import { createCategory, listCategories, getOneCategory,  updateCategory, destro
 const CategoryHandler = {
     create: async(req, res) => {
         try {
-            const createdCategory = await createCategory(req.body, req.params.userId);
+            const createdCategory = await createCategory(req.body);
             if (createdCategory.error) {
                 return res.json({ status: 500, error: createdCategory.error });
             }
@@ -55,11 +55,11 @@ const CategoryHandler = {
     },
     delete: async(req, res) => {
         try {
-            const createdCategory = await destroyCategory(req.params.CategoryId, req.params.userId);
-            if (createdCategory.error) {
-                return res.json({ status: 500, error: createdCategory.error });
+            const categoryToDelete = await destroyCategory(req.params.categoryId, req.params.userId);
+            if (categoryToDelete.error) {
+                return res.json({ status: 500, error: categoryToDelete.error });
             }
-            return res.status(200).json({ status: 200, message: 'Category Deleted Successfully', data: createdCategory });
+            return res.status(200).json({ status: 200, message: 'Category Deleted Successfully' });
           } catch (error) {
             return res.status(500).json({
               error: 'Internal server error'

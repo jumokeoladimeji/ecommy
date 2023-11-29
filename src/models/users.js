@@ -12,7 +12,7 @@ export default (sequelize, DataTypes) => {
         foreignKey: 'cart',
         as: 'cart'
       });
-      this.hasMany(models.orders, {
+      this.hasMany(models.Orders, {
         foreignKey: 'user_id',
         as: 'orders'
       });
@@ -27,13 +27,18 @@ export default (sequelize, DataTypes) => {
     }
   };
   Users.init({
-    name: { type: DataTypes.TEXT, allowNull: true },
-    username: { type: DataTypes.TEXT, allowNull: true },
-    role: { type: DataTypes.TEXT, default: 'user' },
-    email: { type: DataTypes.TEXT, allowNull: false },
-    phone_number: { type: DataTypes.TEXT, allowNull: false },
-    image_url: { type: DataTypes.TEXT, allowNull: true },
-    password: { type: DataTypes.TEXT, allowNull: false },
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+    },
+    name: { type: DataTypes.STRING, allowNull: true },
+    username: { type: DataTypes.STRING, allowNull: true },
+    role: { type: DataTypes.STRING, default: 'user' },
+    email: { type: DataTypes.STRING, allowNull: false },
+    phone_number: { type: DataTypes.STRING, allowNull: false },
+    image_url: { type: DataTypes.STRING, allowNull: true },
+    password: { type: DataTypes.STRING, allowNull: false },
     isVerified: { type: DataTypes.BOOLEAN, default: false },
   }, {
     sequelize,

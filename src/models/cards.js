@@ -19,10 +19,18 @@ export default (sequelize, DataTypes) => {
     }
   };
   Cards.init({
-    title: DataTypes.TEXT,
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+    },
+    title: DataTypes.STRING,
     price: DataTypes.INTEGER,
-    img_url: DataTypes.TEXT,
-    description: DataTypes.TEXT,
+    img_url: DataTypes.STRING,
+    front_img_url: DataTypes.STRING,
+    side_img_url: DataTypes.STRING,
+    back_img_url: DataTypes.STRING,
+    description: DataTypes.STRING,
     available_quantity: DataTypes.INTEGER
   }, {
     sequelize,

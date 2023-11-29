@@ -1,11 +1,13 @@
+const { v4: uuidv4 } = require('uuid');
+
 export default {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('orders', {
+    await queryInterface.createTable('Orders', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV1
+        defaultValue: uuidv4(),
       },
       user_id: {
         type: Sequelize.UUID,
@@ -18,10 +20,10 @@ export default {
         type: Sequelize.DATE
       },
       status: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       confirm_delivery: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       shipping_address_id: {
         type: Sequelize.UUID,
@@ -35,10 +37,10 @@ export default {
         onDelete: 'CASCADE',
       },
       bill: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       customized_message: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       shipping_numbers: {
         type: Sequelize.INTEGER
@@ -50,7 +52,7 @@ export default {
         type: Sequelize.INTEGER
       },
       extra_notes: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -65,6 +67,6 @@ export default {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('orders');
+    await queryInterface.dropTable('Orders');
   }
 };

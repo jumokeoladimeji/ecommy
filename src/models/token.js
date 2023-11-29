@@ -12,6 +12,11 @@ export default (sequelize, DataTypes) => {
     }
   };
   Token.init({
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+    },
     email: DataTypes.STRING,
     token: DataTypes.STRING,
     expiresAt: DataTypes.STRING
