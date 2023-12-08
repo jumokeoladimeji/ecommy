@@ -3,8 +3,7 @@ import db from '../models/index.js';
 const { Cards } = db;
   
 export const createCard = async (cardDetails) => {
-    cardToCreate.category_id = categoryId
-    const newCard = await Cards.create(cardToCreate);
+    const newCard = await Cards.create(cardDetails);
     return newCard.toJSON();
 };
 

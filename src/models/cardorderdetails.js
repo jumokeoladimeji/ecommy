@@ -8,14 +8,14 @@ export default (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.Cards, {
-        foreignKey: 'card_id',
-        as: 'card'
-      });
-      this.belongsTo(models.Orders, {
-        foreignKey: 'order_id',
-        as: 'order'
-      });
+      // this.belongsTo(models.Cards, {
+      //   foreignKey: 'card_id',
+      //   as: 'card'
+      // });
+      // this.belongsTo(models.Orders, {
+      //   foreignKey: 'order_id',
+      //   as: 'order'
+      // });
     }
   };
   CardOrderDetails.init({

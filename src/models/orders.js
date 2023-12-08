@@ -12,10 +12,10 @@ export default (sequelize, DataTypes) => {
         foreignKey: 'user_id',
         as: 'user'
       });
-      this.hasMany(models.Cards, {
-        foreignKey: 'order_id',
-        as: 'cards'
-      });
+      // this.hasMany(models.Cards, {
+      //   foreignKey: 'order_id',
+      //   as: 'cards'
+      // });
       this.belongsTo(models.Addresses, {
         foreignKey: 'address_id',
         as: 'shipping_address_id'

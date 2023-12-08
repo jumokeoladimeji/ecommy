@@ -12,17 +12,6 @@ export default {
       quantity: {
         type: Sequelize.INTEGER
       },
-      category_id: {
-        type: Sequelize.UUID,
-        allowNull: false,
-        references: {
-          model: 'Cards', 
-          key: 'id', 
-          as: 'card_id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
       order_id: {
         type: Sequelize.UUID,
         allowNull: false,

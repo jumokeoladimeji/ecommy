@@ -27,17 +27,19 @@ export default {
         type: Sequelize.STRING
       },
       phone_number: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       image_url: {
         type: Sequelize.STRING
       },
       password: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       isVerified: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: true
       },
       createdAt: {
         allowNull: false,

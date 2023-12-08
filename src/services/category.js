@@ -16,25 +16,27 @@ export const createCategory = async (categoryDetails) => {
 /**
  * @description - Fetches all Categories
 */
-export const listCategory = async () => {
+export const listCategories = async () => {
     try {
         const categories = await Categories.findAll({
             include: [{
                 model: Cards,
                 as: 'cards',
-            }]
+            }],
+            order: [["name", "ASC"]],
+            // raw: true,
         });
-        return categories;
-    } catch(error) {
-        console.log('error', error);
+        return categories
+      } catch (error) {
+        // console.error(new Date().toUTCString(), "-", error);
+        // return "internal error"
+      }
     }
-};
-
 
 /**
   * @description - Fetches a Category
 */
-export const getOne = async (categoryId) => {
+export const getOneCategory = async (categoryId) => {
     try {
         const category = await Categories.findOne({ where: { id: categoryId }}, 
             {

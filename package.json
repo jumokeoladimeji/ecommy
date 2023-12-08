@@ -6,7 +6,7 @@
   "scripts": {
     "start:dev": "nodemon --exec babel-node src/server.js",
     "start": "node src/server.js",
-    "dev": "nodemon index.js",
+    "dev": "nodemon server.js",
     "db:migrate": "cd src && sequelize db:migrate"
   },
   "author": "jumoke",

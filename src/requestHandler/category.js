@@ -17,10 +17,10 @@ const CategoryHandler = {
     getAll: async(req, res) => {
       try {
           const categories = await listCategories();
-          if (categories.error) {
-              return res.json({ status: 500, error: categories.error });
+          if (!categories) {
+              return res.json({ status: 500, error: "Error retrieving categories data" });
           }
-          return res.status(200).json({ status: 200, message: 'categories Returned Successfully', data: response });
+          return res.status(200).json({ status: 200, message: 'categories Returned Successfully', data: categories });
         } catch (error) {
           return res.status(500).json({
             error: 'Internal server error'

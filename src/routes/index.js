@@ -8,7 +8,7 @@ import userRouter from './user-routes.js';
 
 export default (app) => {
     app.use(cors());
-    app.use('/api/v1', userRouter)
+    app.use('/api/v1/users', userRouter)
     app.use('/api/v1/categories', categoryRouter)
     app.use('/api/v1', orderRouter)
     app.use('/api/v1/cards', cardRouter)

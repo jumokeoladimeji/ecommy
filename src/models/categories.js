@@ -12,10 +12,6 @@ export default (sequelize, DataTypes) => {
         foreignKey: 'category_id',
         as: 'cards'
       });
-      this.hasMany(models.CardOrderDetails, {
-        foreignKey: 'category_id',
-        as: 'category_order_details'
-      });
     }
   };
   Categories.init({

@@ -1,9 +1,9 @@
 import { createCard, listCard, getOneCard,  updateCard, destroyCard } from '../services/card';
 
-const CardHandler = {
+const cardHandler = {
     create: async(req, res) => {
         try {
-            const createdCard = await createCard(req.body, req.params.userId);
+            const createdCard = await createCard(req.body);
             if (createdCard.error) {
                 return res.json({ status: 500, error: createdCard.error });
             }
@@ -68,4 +68,4 @@ const CardHandler = {
     }
 }
 
-export default CardHandler;
+export default cardHandler;

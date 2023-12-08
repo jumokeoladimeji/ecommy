@@ -12,10 +12,10 @@ export default (sequelize, DataTypes) => {
         foreignKey: 'user_id',
         as: 'user'
       });
-      this.hasMany(models.Cards, {
-        foreignKey: 'cart_id',
-        as: 'cards'
-      });
+      // this.hasMany(models.Cards, {
+      //   foreignKey: 'card_id',
+      //   as: 'cards'
+      // });
     }
   };
   Carts.init({
