@@ -6,12 +6,14 @@ dotenv.config()
 
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV.trim() || 'development';
+const MYSQL_URL = process.env.MYSQL_URL.trim()
 
 const config = require('../config/database.js')[env];
 
 const db = {};
 
-const sequelize = new Sequelize(config.database, config.username, config.password, config);
+// const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const sequelize = new Sequelize(MYSQL_URL);
 
 // sequelize.authenticate().then(() => {
 //   console.log('Connection has been established successfully.');
