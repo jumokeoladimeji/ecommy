@@ -4,8 +4,7 @@
   "description": "ecommerce app",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon --exec babel-node src/server.js",
-    "start": "node src/server.js",
+    "start": "nodemon --exec babel-node src/server.js",
     "dev": "nodemon server.js",
     "db:migrate": "cd src && sequelize db:migrate"
   },
