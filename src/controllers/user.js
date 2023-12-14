@@ -7,6 +7,7 @@ import { sendEmail } from '../helpers/email.js';
 import { validate } from '../helpers/validator.js';
 
 export const createUser = async (userDetails, host) => {
+  console.log('userdetails', userDetails)
   // validate obj with joi
   const createUserSchema = joi.object({
     email: joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
@@ -28,6 +29,7 @@ export const createUser = async (userDetails, host) => {
   }
 
   const existingUser = await getUser({ email: userDetails.email});
+  console.log('user already exists')
   if (existingUser) {
     return {
       success: false,
@@ -46,25 +48,23 @@ export const createUser = async (userDetails, host) => {
   };
 
   const createdUser = await userServiceCreate(userObj);
-  console.log('user created generate token')
-  const token = generateToken(createdUser);
-  console.log('token generated')
-  await saveToken({ token, email: createdUser.email });
-
   // send email
-  const url = `http://${host}/api/v1/user/verify/${token}`;
-  const emailObj = {
-    message: `Hi ${createdUser.username ? createdUser.username: 'user'}, <br><br>Please visit this url to verify your email: <br><a href=${url}>${url}</a><br><br> Regards, <br><i>FacePosts.</i>`,
-    subject: 'Please Confirm Your Account',
-    email: createdUser.email
-  };
-  console.log('about to send email', emailObj)
+  // const url = `http://${host}/api/v1/user/verify/${token}`;
+  // const emailObj = {
+  //   message: `Hi ${createdUser.username ? createdUser.username: 'user'}, <br><br>Please visit this url to verify your email: <br><a href=${url}>${url}</a><br><br> Regards, <br><i>FacePosts.</i>`,
+  //   subject: 'Please Confirm Your Account',
+  //   email: createdUser.email
+  // };
+  // console.log('about to send email', emailObj)
   // await sendEmail(emailObj);
+  const signinToken = generateToken(createdUser, '1 day');
+  console.log('about to send !!!!')
   return {
     success: true,
     data: createdUser,
     status: 201,
-    message: `An email has been sent to ${createdUser.email} with further instructions.`,
+    token: signinToken,
+    // message: `An email has been sent to ${createdUser.email} with further instructions.`,
   };
 }
 

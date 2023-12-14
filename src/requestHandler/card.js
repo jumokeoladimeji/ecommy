@@ -55,7 +55,7 @@ const cardHandler = {
     },
     delete: async(req, res) => {
         try {
-            const createdCard = await destroyCard(req.params.CardId);
+            const createdCard = await destroyCard(req.params.cardId);
             if (createdCard.error) {
                 return res.json({ status: 500, error: createdCard.error });
             }

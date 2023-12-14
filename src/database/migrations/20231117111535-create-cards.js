@@ -16,6 +16,10 @@ export default {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
+      stripe_product_id: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       title: {
         type: Sequelize.STRING
       },

@@ -21,6 +21,7 @@ export default (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4,
     },
     title: DataTypes.STRING,
+    stripe_product_id: { type: DataTypes.STRING, allowNull: false },
     price: DataTypes.INTEGER,
     img_url: DataTypes.STRING,
     front_img_url: DataTypes.STRING,
