@@ -133,6 +133,7 @@ export const signinUser = async (userDetails) => {
       };
     }
     const passwordMatch = await validPassword(userDetails.password, user.password);
+    console.log('passwordMatch')
     if (!passwordMatch) {
       return { 
         success: false,

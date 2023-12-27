@@ -2,7 +2,7 @@
   "name": "ecommy",
   "version": "1.0.0",
   "description": "ecommerce app",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "nodemon --exec babel-node src/server.js",
     "dev": "nodemon server.js",
