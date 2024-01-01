@@ -6,7 +6,6 @@ const userHandler = {
             const createdUserResponse = await createUser(req.body, req.headers.host);
             return res.status(createdUserResponse.status).json(createdUserResponse);
           } catch (error) {
-            console.log('error', error)
             return res.status(500).json({
               error: 'Internal server error'
             });
