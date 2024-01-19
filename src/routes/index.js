@@ -5,6 +5,7 @@ import cardRouter from './card-routes';
 import categoryRouter from './category-routes';
 import orderRouter from './order-routes';
 import userRouter from './user-routes.js';
+import stripeWebhookListenerRouter from './stripe-webhook-routes.js'
 
 export default (app) => {
     app.use(cors());
@@ -12,6 +13,7 @@ export default (app) => {
     app.use('/api/v1/categories', categoryRouter)
     app.use('/api/v1', orderRouter)
     app.use('/api/v1/cards', cardRouter)
+    app.use('/api/v1/stripe/listen', stripeWebhookListenerRouter)
     app.get('/', (req, res) => {
         res.json({ mesage: 'Welcome to ecommy' })
     })
