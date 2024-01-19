@@ -18,7 +18,7 @@ export default (sequelize, DataTypes) => {
       // });
       this.belongsTo(models.Addresses, {
         foreignKey: 'address_id',
-        as: 'shipping_address_id'
+        as: 'shipping_addresses'
       });
       this.hasMany(models.CardOrderDetails, {
         foreignKey: 'order_id',

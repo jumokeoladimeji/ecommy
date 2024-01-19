@@ -58,22 +58,22 @@ export const verifyTokenAndReturnDecoded = (token) => {
   });
 };
 
-// export const verifyToken = async (request, response, next) => {
-//   request.decoded = {};
+export const verifyToken = async (request, response, next) => {
+  request.decoded = {};
 
-//   const token = getTokenFromHeader(request);
-//   try {
-//     if (token) {
-//       const decoded = await verifyTokenAndReturnDecoded(token);
-//       const user = await getUser({ email: decoded.email });
-//       request.decoded = user;
-//       next();
-//     } else {
-//       return response.status(401).json({
-//         error: 'Token required for access',
-//       });
-//     }
-//   } catch (error) {
-//     return response.status(403).json({ error: 'Invalid or no Token was provided. Please login to continue' });
-//   }
-// };
+  const token = getTokenFromHeader(request);
+  try {
+    if (token) {
+      const decoded = await verifyTokenAndReturnDecoded(token);
+      const user = await getUser({ email: decoded.email });
+      request.decoded = user;
+      next();
+    } else {
+      return response.status(401).json({
+        error: 'Token required for access',
+      });
+    }
+  } catch (error) {
+    return response.status(403).json({ error: 'Invalid or no Token was provided. Please login to continue' });
+  }
+};

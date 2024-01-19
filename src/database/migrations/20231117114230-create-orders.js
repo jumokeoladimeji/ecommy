@@ -25,13 +25,13 @@ export default {
       confirm_delivery: {
         type: Sequelize.STRING
       },
-      shipping_address_id: {
+      address_id: {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
           model: 'Addresses', 
           key: 'id', 
-          as: 'shipping_address_id'
+          as: 'address_id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
@@ -42,8 +42,8 @@ export default {
       customized_message: {
         type: Sequelize.STRING
       },
-      shipping_numbers: {
-        type: Sequelize.INTEGER
+      shipping_phone_number: {
+        type: Sequelize.STRING
       },
       payment_id: {
         type: Sequelize.INTEGER

@@ -1,11 +1,39 @@
 import db from '../models';
-const { Orders, CardOrderDetails } = db;
+const { Orders, CardOrderDetails, Addresses } = db;
   
 export const createOrder = async (orderDetails) => {
-    const newOrder = await Orders.create(orderDetails);
+    console.log('orderDetails', orderDetails)
+    const newAddress = await Addresses.create({
+        user_id: orderDetails.user_id,
+        address1: orderDetails.address1,
+        address2: orderDetails.address2,
+        city: orderDetails.city,
+        state: orderDetails.state,
+        zip: orderDetails.zip,
+        country: "United States",
+    })
+
+    const address = newAddress.toJSON()
+    const orderToCreate = {
+        user_id: orderDetails.user_id,
+        expected_time_of_delivery: orderDetails.expected_time_of_delivery,
+        status: orderDetails.status,
+        confirm_delivery: orderDetails.confirm_delivery,
+        address_id: address.id,
+        bill: orderDetails.bill,
+        customized_message: orderDetails.customized_message,
+        shipping_phone_number: orderDetails.shipping_phone_number,
+        payment_id: orderDetails.payment_id,
+        stripe_charge_id: orderDetails.stripe_charge_id,
+        extra_notes: orderDetails.extra_notes,
+    }
+
+    const newOrder = await Orders.create(orderToCreate);
+    console.log('newOrder', newOrder)
+    const orderCreated = newOrder.toJSON()
     const cardOrderDetail = await CardOrderDetails.create({
-        card_id: cardId,
-        order_id: newOrder.id,
+        // card_id: cardId,// make it an array orchange to cart details
+        order_id: orderCreated.id,
         quantity: orderDetails.quantity
     })
     return newOrder.toJSON();

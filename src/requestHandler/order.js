@@ -1,14 +1,17 @@
 import { createOrder, listOrders, listOrdersByUser, getOneOrder,  updateOrder, destroyOrder } from '../services/order';
 
-const OrderHandler = {
+const orderHandler = {
     create: async(req, res) => {
         try {
-            const createdOrder = await createOrder(req.body);
+            const orderDetails = req.body
+            orderDetails['user_id'] = req.decoded.id
+            const createdOrder = await createOrder(orderDetails);
             if (createdOrder.error) {
                 return res.json({ status: 500, error: createdOrder.error });
             }
             return res.status(201).json({ status: 201, message: 'Order Created Successfully', data: createdOrder });
           } catch (error) {
+            console.log('error', error)
             return res.status(500).json({
               error: 'Internal server error'
             });
@@ -81,4 +84,4 @@ const OrderHandler = {
     }
 }
 
-export default OrderHandler;
+export default orderHandler;
