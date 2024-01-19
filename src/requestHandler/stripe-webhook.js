@@ -7,7 +7,7 @@ const stripeHandler = {
 
             try {
                 const reqBuffer = await req.text();
-                const signSecret = process.env.STRIPE_SECRET;
+                const signSecret = process.env.STRIPE_SECRET_KEY;
                 event = stripe.webhooks.constructEvent(reqBuffer, sig, signSecret);
               } catch (e) {
                 console.error('stripe error');
