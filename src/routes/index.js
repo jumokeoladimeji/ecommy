@@ -13,7 +13,7 @@ export default (app) => {
     app.use('/api/v1/categories', categoryRouter)
     app.use('/api/v1', orderRouter)
     app.use('/api/v1/cards', cardRouter)
-    app.use('/api/v1/stripe/listen', stripeWebhookListenerRouter)
+    app.use('/api/v1/stripe', stripeWebhookListenerRouter)
     app.get('/', (req, res) => {
         res.json({ mesage: 'Welcome to ecommy' })
     })
