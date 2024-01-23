@@ -70,7 +70,7 @@ const orderHandler = {
     },
     delete: async(req, res) => {
         try {
-            const orderToDelete = await destroyOrder(req.params.OrderId, req.params.userId);
+            const orderToDelete = await destroyOrder(req.params.orderId);
             if (orderToDelete.error) {
                 return res.json({ status: 500, error: orderToDelete.error });
             }

@@ -78,7 +78,6 @@ export const listOrdersByUser = async (userId) => {
   * @description - Fetches a order
 */
 export const getOneOrder = async (orderId) => {
-    console.log('order opoppo')
     const order = await Orders.findOne(
         {
             where: { id: orderId },
@@ -118,7 +117,7 @@ export const updateOrder = async (orderDetails, orderId) => {
             }]
         }
     )
-    const orderToEdiT = order.toJSON()
+
     if (!order) {
         return { 
             success: false, 
@@ -127,6 +126,7 @@ export const updateOrder = async (orderDetails, orderId) => {
         };
     }
 
+    const orderToEdiT = order.toJSON()
     orderToEdiT.status = orderDetails.status || orderToEdiT.status;
     orderToEdiT.expected_time_of_delivery =  orderDetails.expected_time_of_delivery || orderToEdiT.expected_time_of_delivery;
     orderToEdiT.confirm_delivery = orderDetails.confirm_delivery || orderToEdiT.confirm_delivery;
@@ -151,17 +151,17 @@ export const updateOrder = async (orderDetails, orderId) => {
 */
 export const destroyOrder = async (orderId) => {
     const order = await Orders.findOne({ where: { id: orderId }});
-    if (!orders) {
+    if (!order) {
         return {
-            error: 'Orders not found',
+            error: 'order not found',
             status: 404
         }
     }
-    await orders.destroy({ where: { id: orderId }})
+    await Orders.destroy({ where: { id: orderId }})
     return { 
         success: true, 
         status: 200,
-        message: 'Orders deleted'
+        message: 'order deleted'
     }
                 
 }
