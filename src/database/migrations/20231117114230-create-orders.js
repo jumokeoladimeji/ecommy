@@ -23,10 +23,12 @@ export default {
         type: Sequelize.STRING
       },
       confirm_delivery: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       paid: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       address_id: {
         type: Sequelize.UUID,

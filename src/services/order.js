@@ -43,13 +43,14 @@ export const createOrder = async (orderDetails) => {
  * @description - Fetches all Orders
 */
 export const listOrders = async () => {
+    console.log('list orders services')
     const orders = await Orders.findAll({
-        include: [{
-            model: CardOrderDetails,
-            as: 'cardOrderDetails',
-        }]
+        // include: [{
+        //     model: CardOrderDetails,
+        //     as: 'cardOrderDetails',
+        // }]
     });
-    return orders;
+    return orders.toJSON();;
 };
 
 export const listOrdersByUser = async (userId) => {
@@ -67,12 +68,16 @@ export const listOrdersByUser = async (userId) => {
 /**
   * @description - Fetches a order
 */
-export const getOne = async (orderId) => {
+export const getOneOrder = async (orderId) => {
     const order = await Orders.findOne({ where: { id: orderId }}, 
         {
             include: [{
                 model: CardOrderDetails,
                 as: 'cardOrderDetails',
+            },
+            {
+                model: Addresses,
+                as: 'address_id',
             }]
     });
     if (!order) {
@@ -90,11 +95,12 @@ export const getOne = async (orderId) => {
 export const updateOrder = async (orderDetails, orderId) => {
     const order = await Orders.findOne({ where: { id: orderId }}, 
         {
-            include: [{
-                model: CardOrderDetails,
-                as: 'cardOrderDetails',
-            }]
+            // include: [{
+            //     model: CardOrderDetails,
+            //     as: 'cardOrderDetails',
+            // }]
     })
+    const orderToEdiT = order.toJSON()
     if (!order) {
         return { 
             success: false, 
@@ -103,13 +109,26 @@ export const updateOrder = async (orderDetails, orderId) => {
         };
     }
 
-    order.name = orderDetails.name || order.name,
-    await card.save();
-    return card;
+    orderToEdiT.status = orderDetails.status || orderToEdiT.status;
+    orderToEdiT.expected_time_of_delivery =  orderDetails.expected_time_of_delivery || orderToEdiT.expected_time_of_delivery;
+    orderToEdiT.confirm_delivery = orderDetails.confirm_delivery || orderToEdiT.confirm_delivery;
+    orderToEdiT.bill = orderDetails.bill || orderToEdiT.bill;
+    orderToEdiT.customized_message = orderDetails.customized_message || orderToEdiT.customized_message;
+    orderToEdiT.shipping_phone_number = orderDetails.shipping_phone_number || orderToEdiT.shipping_phone_number;
+    orderToEdiT.stripe_charge_id = orderDetails.stripe_charge_id || orderToEdiT.stripe_charge_id;
+    orderToEdiT.extra_notes = orderDetails.extra_notes || orderToEdiT.extra_notes;
+    orderToEdiT.paid = orderDetails.paid || orderToEdiT.paid;
+
+    const result = await Orders.update(
+        { orderToEdiT },
+        { where: { id:  orderId } }
+    )
+
+    return orderToEdiT;
 };
 
 /**
- * @description - Deletes a Card
+ * @description - Deletes an Order
 */
 export const destroyOrder = async (orderId) => {
     const order = await Orders.findOne({ where: { id: orderId }},

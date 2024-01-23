@@ -8,8 +8,8 @@ orderRouter
   .post('/orders', verifyToken, orderHandler.create)
   .get('/orders', verifyToken, orderHandler.getAll) // admin
   .get('/users/:userId/orders ', verifyToken, orderHandler.getUserOrders)
-  .get('/orders/:orderId', orderHandler.getOne)
-  .put('/orders/:orderId', orderHandler.update) // can't update once paid
+  .get('/orders/:orderId', verifyToken, orderHandler.getOne)
+  .put('/orders/:orderId', verifyToken, orderHandler.update) // can't update once paid
   .delete('/orders/:orderId', verifyToken, orderHandler.delete) // admin
 
 export default orderRouter

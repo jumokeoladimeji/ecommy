@@ -11,7 +11,6 @@ const orderHandler = {
             }
             return res.status(201).json({ status: 201, message: 'Order Created Successfully', data: createdOrder });
           } catch (error) {
-            console.log('error', error)
             return res.status(500).json({
               error: 'Internal server error'
             });
@@ -19,7 +18,9 @@ const orderHandler = {
     },
     getAll: async(req, res) => {
       try {
+        console.log('list orders')
           const orders = await listOrders();
+          console.log('orders in order handler', orders)
           if (orders.error) {
               return res.json({ status: 500, error: orders.error });
           }
