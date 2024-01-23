@@ -127,6 +127,7 @@ export const updateOrder = async (orderDetails, orderId) => {
     }
 
     const orderToEdiT = order.toJSON()
+
     orderToEdiT.status = orderDetails.status || orderToEdiT.status;
     orderToEdiT.expected_time_of_delivery =  orderDetails.expected_time_of_delivery || orderToEdiT.expected_time_of_delivery;
     orderToEdiT.confirm_delivery = orderDetails.confirm_delivery || orderToEdiT.confirm_delivery;
@@ -138,8 +139,8 @@ export const updateOrder = async (orderDetails, orderId) => {
     orderToEdiT.paid = orderDetails.paid || orderToEdiT.paid;
     orderToEdiT.line_items = orderDetails.line_items || orderToEdiT.line_items;
 
-    const result = await Orders.update(
-        { orderToEdiT },
+    await Orders.update(
+        orderToEdiT,
         { where: { id:  orderId } }
     )
 
