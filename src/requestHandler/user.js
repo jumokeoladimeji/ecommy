@@ -1,4 +1,4 @@
-import { createUser, verifyTokenAndCompleteSignup, signinUser, getUserDetails, initiatePasswordReset, validatePasswordResetToken, updatePassword } from '../controllers/user.js';
+import { createUser, verifyTokenAndCompleteSignup, signinUser, getUserDetails, updateUser, initiatePasswordReset, validatePasswordResetToken, updatePassword } from '../controllers/user.js';
 
 const userHandler = {
     signup: async(req, res) => {
@@ -31,11 +31,25 @@ const userHandler = {
           });
       }
   },
-  get: async(res, req) => {
+  get: async(req, res) => {
     try {
-      const existingUser = await getUserDetails(req.params.id);
+      const existingUser = await getUserDetails(req.params.userId);
       return res.status(existingUser.status).json(existingUser);
     } catch (error) {
+      return res.status(500).json({
+        error: 'Internal server error'
+      });
+    }
+  },
+  update: async(req, res) => {
+    try {
+      const updatedUser = await updateUser(req.params.userId, req.body);
+      if (updatedUser.error) {
+        return res.json({ status: updatedUser.status || 500, error: updatedUser.error });
+      }
+      return res.json({ status: 200, message: 'User Updated Successfully', data: updatedUser });
+    } catch (error) {
+      console.log('error', error)
       return res.status(500).json({
         error: 'Internal server error'
       });

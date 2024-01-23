@@ -3,14 +3,8 @@ import db from '../models/index.js';
 const { Categories, Cards } = db;
   
 export const createCategory = async (categoryDetails) => {
-    try { 
-        const newCategory = await Categories.create(categoryDetails);
-        return newCategory.toJSON();
-    } catch(error) {
-        return res.status(500).json({
-            error: 'Internal server error'
-        });
-    }
+    const newCategory = await Categories.create(categoryDetails);
+    return newCategory.toJSON();
 };
 
 
@@ -18,106 +12,85 @@ export const createCategory = async (categoryDetails) => {
  * @description - Fetches all Categories
 */
 export const listCategories = async () => {
-    try {
-        const categories = await Categories.findAll({
-            include: [{
-                model: Cards,
-                as: 'cards',
-            }],
-            order: [["name", "ASC"]],
-            // raw: true,
-        });
-        return categories
-      } catch (error) {
-        return res.status(500).json({
-            error: 'Internal server error'
-        });
-      }
-    }
+    const categories = await Categories.findAll({
+        include: [{
+            model: Cards,
+            as: 'cards',
+        }],
+        order: [["name", "ASC"]],
+    });
+    return categories
+}
 
 /**
   * @description - Fetches a Category
 */
 export const getOneCategory = async (categoryId) => {
-    try {
-        const category = await Categories.findOne({ where: { id: categoryId }}, 
-            {
-                include: [{
-                    model: Cards,
-                    as: 'cards',
-                }]
-        });
-        if (!category) {
-            return {
-                error: 'Category not found',
-                status: 404
-            }
+    const category = await Categories.findOne({ where: { id: categoryId }},
+        {
+            include: [{
+                model: Cards,
+                as: 'cards',
+            }]
+    });
+    if (!category) {
+        return {
+            error: 'Category not found',
+            status: 404
         }
-        return category || category.toJSON();
-    } catch(error) {
-        return res.status(500).json({
-            error: 'Internal server error'
-        });
     }
+    return category || category.toJSON();
 };
 
 /**
 * @description - Updates Category details
 */
 export const updateCategory = async (categoryDetails, categoryId) => {
-    try {
-        const category = await Categories.findOne({ where: { id: categoryId }}, 
-            {
-                include: [{
-                    model: Cards,
-                    as: 'cards',
-                }]
-        })
-        if (!category) {
-            return { 
-                success: false, 
-                status: 404, 
-                error: 'Category not found'
-            };
-        }
-
-        category.name = categoryDetails.name || category.name,
-        await category.save();
-        return category;
-    } catch(error) {
-        return res.status(500).json({
-            error: 'Internal server error'
-        });
+    const category = await Categories.findOne({ where: { id: categoryId }},
+        {
+            include: [{
+                model: Cards,
+                as: 'cards',
+            }]
+    })
+    if (!category) {
+        return {
+            success: false,
+            status: 404,
+            error: 'Category not found'
+        };
     }
+
+    category.name = categoryDetails.name || category.name,
+
+    await Categories.update(
+        { category },
+        { where: { id:  categoryId } }
+    )
+    return category;
 };
 
 /**
  * @description - Deletes a Category
 */
 export const destroyCategory = async (categoriesId) => {
-    try {
-        const categories = await Categories.findOne({ where: { id: categoriesId }},
-            {
-                include: [{
-                    model: Cards,
-                    as: 'cards',
-                }]
-        });
-        if (!categories) {
-            return {
-                error: 'categories not found',
-                status: 404
-            }
+    const categories = await Categories.findOne({ where: { id: categoriesId }},
+        {
+            include: [{
+                model: Cards,
+                as: 'cards',
+            }]
+    });
+    if (!categories) {
+        return {
+            error: 'categories not found',
+            status: 404
         }
-        await Categories.destroy({ where: { id: categoriesId }})
-        return { 
-            success: true, 
-            status: 200,
-            message: 'categories deleted'
-        }  
-    } catch(error) {
-        return res.status(500).json({
-            error: 'Internal server error'
-        });
-    }            
+    }
+    await Categories.destroy({ where: { id: categoriesId }})
+    return {
+        success: true,
+        status: 200,
+        message: 'categories deleted'
+    }
 }

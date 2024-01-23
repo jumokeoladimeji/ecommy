@@ -48,6 +48,7 @@ const CategoryHandler = {
             }
             return res.status(200).json({ status: 200, message: 'Category Updated Successfully', data: updatedCategory });
           } catch (error) {
+            console.log('err', error)
             return res.status(500).json({
               error: 'Internal server error'
             });
@@ -55,7 +56,7 @@ const CategoryHandler = {
     },
     delete: async(req, res) => {
         try {
-            const categoryToDelete = await destroyCategory(req.params.categoryId, req.params.userId);
+            const categoryToDelete = await destroyCategory(req.params.categoryId);
             if (categoryToDelete.error) {
                 return res.json({ status: 500, error: categoryToDelete.error });
             }

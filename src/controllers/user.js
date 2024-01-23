@@ -163,6 +163,7 @@ export const getUserDetails = async (userId) => {
     };
 }
 
+
 export const updateUser = async  (userId, userDetails) => {
     // validate obj with joi
   const user = await getUser({ id: userId });
@@ -174,29 +175,21 @@ export const updateUser = async  (userId, userDetails) => {
     };
   }
   const hashedPasswordToSave = userDetails.password ? hashPassword(userDetails.password) : user.Password
-  user
-    .update({
+  const userToUpdate = {
       name: userDetails.name || user.name,
       username: userDetails.username || user.username,
       email: userDetails.email || user.email,
       phone_number: userDetails.phoneNumber || user.phone_number,
       image_url: userDetails.image || user.image_url,
       password: hashedPasswordToSave,
-    })
-    .then((updatedUser) => {
-      return {
-        success: true,
-        status: 200, 
-        data: updatedUser
-      };
-    })
-    .catch((error) => {
-      return {
-        success: false,
-        status: 500, 
-        error
-      }
-    });
+  }
+  const updatedUser = await saveUser(userToUpdate, { id: userId});
+  console.log('updatedUser', updatedUser)
+  return {
+    success: true,
+    data: userToUpdate,
+    status: 200
+  };
 }
 
 export const initiatePasswordReset =  async (userObj, host) => {
