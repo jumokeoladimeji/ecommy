@@ -20,11 +20,10 @@ const orderHandler = {
       try {
         console.log('list orders')
           const orders = await listOrders();
-          console.log('orders in order handler', orders)
           if (orders.error) {
               return res.json({ status: 500, error: orders.error });
           }
-          return res.status(200).json({ status: 200, message: 'Orders Returned Successfully', data: response });
+          return res.status(200).json({ status: 200, message: 'Orders Returned Successfully', data: orders });
         } catch (error) {
           return res.status(500).json({
             error: 'Internal server error'
@@ -37,7 +36,7 @@ const orderHandler = {
             if (orders.error) {
                 return res.json({ status: 500, error: orders.error });
             }
-            return res.status(200).json({ status: 200, message: 'Orders Returned Successfully', data: response });
+            return res.status(200).json({ status: 200, message: 'Orders Returned Successfully', data: orders });
           } catch (error) {
             return res.status(500).json({
               error: 'Internal server error'

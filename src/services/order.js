@@ -43,15 +43,21 @@ export const createOrder = async (orderDetails) => {
  * @description - Fetches all Orders
 */
 export const listOrders = async () => {
-    console.log('list orders services')
-    const orders = await Orders.findAll({
-        // include: [{
-        //     model: CardOrderDetails,
-        //     as: 'cardOrderDetails',
-        // }]
-    });
-    return orders.toJSON();;
+    const orders = await Orders.findAll({ raw: true });
+    console.log('orders', orders)
+    return orders;
 };
+// export const listOrders = async () => {
+//     console.log('list orders services')
+//     const orders = await Orders.findAll({
+//         // include: [{
+//         //     model: CardOrderDetails,
+//         //     as: 'cardOrderDetails',
+//         // }]
+//     });
+//     console.log('list orders after', orders)
+//     return orders.toJSON();;
+// };
 
 export const listOrdersByUser = async (userId) => {
     const orders = await Orders.findAll({
