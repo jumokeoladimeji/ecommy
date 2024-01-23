@@ -18,7 +18,7 @@ export default (sequelize, DataTypes) => {
       // });
       this.belongsTo(models.Addresses, {
         foreignKey: 'address_id',
-        as: 'shipping_addresses'
+        as: 'addresses'
       });
       this.hasMany(models.CardOrderDetails, {
         foreignKey: 'order_id',
@@ -34,14 +34,29 @@ export default (sequelize, DataTypes) => {
     },
     expected_time_of_delivery: DataTypes.DATE,
     status: DataTypes.STRING,
-    confirm_delivery: DataTypes.BOOLEAN,
+    confirm_delivery: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     bill: DataTypes.STRING,
     customized_message: DataTypes.STRING,
     shipping_phone_number: DataTypes.STRING,
     payment_id: DataTypes.INTEGER,
     stripe_charge_id: DataTypes.INTEGER,
     extra_notes: DataTypes.STRING,
-    paid: DataTypes.BOOLEAN,
+    paid: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    line_items: {
+      type: DataTypes.JSON,
+      get() {
+        return JSON.parse(this.getDataValue("line_items"));
+      },
+      set(value) {
+        return this.setDataValue("line_items", JSON.stringify(value));
+      }
+    },
   }, {
     sequelize,
     modelName: 'Orders',

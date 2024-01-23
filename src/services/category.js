@@ -3,12 +3,13 @@ import db from '../models/index.js';
 const { Categories, Cards } = db;
   
 export const createCategory = async (categoryDetails) => {
-    console.log(categoryDetails, 'categoryDetails')
     try { 
         const newCategory = await Categories.create(categoryDetails);
         return newCategory.toJSON();
     } catch(error) {
-        console.log('error', error);
+        return res.status(500).json({
+            error: 'Internal server error'
+        });
     }
 };
 
@@ -28,8 +29,9 @@ export const listCategories = async () => {
         });
         return categories
       } catch (error) {
-        // console.error(new Date().toUTCString(), "-", error);
-        // return "internal error"
+        return res.status(500).json({
+            error: 'Internal server error'
+        });
       }
     }
 
@@ -53,7 +55,9 @@ export const getOneCategory = async (categoryId) => {
         }
         return category || category.toJSON();
     } catch(error) {
-        console.log('error', error);
+        return res.status(500).json({
+            error: 'Internal server error'
+        });
     }
 };
 
@@ -81,7 +85,9 @@ export const updateCategory = async (categoryDetails, categoryId) => {
         await category.save();
         return category;
     } catch(error) {
-        console.log('error', error);
+        return res.status(500).json({
+            error: 'Internal server error'
+        });
     }
 };
 
@@ -110,6 +116,8 @@ export const destroyCategory = async (categoriesId) => {
             message: 'categories deleted'
         }  
     } catch(error) {
-        console.log('error', error);
+        return res.status(500).json({
+            error: 'Internal server error'
+        });
     }            
 }

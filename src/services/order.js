@@ -25,13 +25,13 @@ export const createOrder = async (orderDetails) => {
         payment_id: orderDetails.payment_id,
         stripe_charge_id: orderDetails.stripe_charge_id,
         extra_notes: orderDetails.extra_notes,
-        paid: orderDetails.paid
+        paid: orderDetails.paid,
+        line_items: orderDetails.line_items
     }
 
     const newOrder = await Orders.create(orderToCreate);
     const orderCreated = newOrder.toJSON()
     const cardOrderDetail = await CardOrderDetails.create({
-        // card_id: cardId,// make it an array orchange to cart details
         order_id: orderCreated.id,
         quantity: orderDetails.quantity
     })
@@ -43,30 +43,33 @@ export const createOrder = async (orderDetails) => {
  * @description - Fetches all Orders
 */
 export const listOrders = async () => {
-    const orders = await Orders.findAll({ raw: true });
-    console.log('orders', orders)
+    const orders = Orders.findAll({
+        include: [{
+          model: Addresses,
+          as: 'addresses'
+        },
+        {
+            model: CardOrderDetails,
+            as: 'card_order_details'
+        }]
+    });
     return orders;
 };
-// export const listOrders = async () => {
-//     console.log('list orders services')
-//     const orders = await Orders.findAll({
-//         // include: [{
-//         //     model: CardOrderDetails,
-//         //     as: 'cardOrderDetails',
-//         // }]
-//     });
-//     console.log('list orders after', orders)
-//     return orders.toJSON();;
-// };
+
 
 export const listOrdersByUser = async (userId) => {
     const orders = await Orders.findAll({
         where: { user_id: userId }}, {
-        include: [{
-            model: CardOrderDetails,
-            as: 'cardOrderDetails',
-        }]
-    });
+            include: [{
+                model: CardOrderDetails,
+                as: 'card_order_details',
+            },
+            {
+                model: Addresses,
+                as: 'addresses',
+            }]
+        }
+    );
     return Orders;
 };
 
@@ -79,13 +82,14 @@ export const getOneOrder = async (orderId) => {
         {
             include: [{
                 model: CardOrderDetails,
-                as: 'cardOrderDetails',
+                as: 'card_order_details',
             },
             {
                 model: Addresses,
-                as: 'address_id',
+                as: 'addresses',
             }]
-    });
+        }
+    );
     if (!order) {
         return {
             error: 'Order not found',
@@ -99,13 +103,19 @@ export const getOneOrder = async (orderId) => {
 * @description - Updates Order details
 */
 export const updateOrder = async (orderDetails, orderId) => {
-    const order = await Orders.findOne({ where: { id: orderId }}, 
+    const order = await Orders.findOne({
+        where: { id: orderId }}, 
         {
-            // include: [{
-            //     model: CardOrderDetails,
-            //     as: 'cardOrderDetails',
-            // }]
-    })
+            include: [{
+                model: Addresses,
+                as: 'addresses'
+            }, 
+            {
+                model: CardOrderDetails,
+                as: 'card_order_details'
+            }]
+        }
+    )
     const orderToEdiT = order.toJSON()
     if (!order) {
         return { 
@@ -124,6 +134,7 @@ export const updateOrder = async (orderDetails, orderId) => {
     orderToEdiT.stripe_charge_id = orderDetails.stripe_charge_id || orderToEdiT.stripe_charge_id;
     orderToEdiT.extra_notes = orderDetails.extra_notes || orderToEdiT.extra_notes;
     orderToEdiT.paid = orderDetails.paid || orderToEdiT.paid;
+    orderToEdiT.line_items = orderDetails.line_items || orderToEdiT.line_items;
 
     const result = await Orders.update(
         { orderToEdiT },

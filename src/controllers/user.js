@@ -7,7 +7,6 @@ import { sendEmail } from '../helpers/email.js';
 import { validate } from '../helpers/validator.js';
 
 export const createUser = async (userDetails, host) => {
-  console.log('userdetails', userDetails)
   // validate obj with joi
   const createUserSchema = joi.object({
     email: joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
@@ -29,7 +28,6 @@ export const createUser = async (userDetails, host) => {
   }
 
   const existingUser = await getUser({ email: userDetails.email});
-  console.log('user already exists')
   if (existingUser) {
     return {
       success: false,
@@ -58,7 +56,6 @@ export const createUser = async (userDetails, host) => {
   // console.log('about to send email', emailObj)
   // await sendEmail(emailObj);
   const signinToken = generateToken(createdUser, '1 day');
-  console.log('about to send !!!!')
   return {
     success: true,
     data: createdUser,
@@ -133,7 +130,6 @@ export const signinUser = async (userDetails) => {
       };
     }
     const passwordMatch = await validPassword(userDetails.password, user.password);
-    console.log('passwordMatch')
     if (!passwordMatch) {
       return { 
         success: false,

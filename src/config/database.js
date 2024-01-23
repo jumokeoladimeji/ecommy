@@ -1,10 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config()
 
-console.log('process.env.DATABASE_HOST,', process.env.DATABASE_HOST, 'process.env.DATABASE_USER', process.env.DATABASE_USER, 'process.env.DATABASE_PASSWORD', process.env.DATABASE_PASSWORD)
-console.log('process.env.DATABASE_PORT,', process.env.DATABASE_PORT)
-console.log('process.env.MYSQL_URL,', process.env.MYSQL_URL)
-
 module.exports = {
   development: {
     host: process.env.DATABASE_HOST,

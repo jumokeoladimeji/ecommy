@@ -18,7 +18,6 @@ const orderHandler = {
     },
     getAll: async(req, res) => {
       try {
-        console.log('list orders')
           const orders = await listOrders();
           if (orders.error) {
               return res.json({ status: 500, error: orders.error });

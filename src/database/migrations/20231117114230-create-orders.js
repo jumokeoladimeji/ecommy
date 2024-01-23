@@ -20,7 +20,8 @@ export default {
         type: Sequelize.DATE
       },
       status: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: 'pending'
       },
       confirm_delivery: {
         type: Sequelize.BOOLEAN,
@@ -58,6 +59,9 @@ export default {
       },
       extra_notes: {
         type: Sequelize.STRING
+      },
+      line_items: {
+        type: Sequelize.JSON
       },
       createdAt: {
         allowNull: false,

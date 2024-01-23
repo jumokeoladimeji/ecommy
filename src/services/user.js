@@ -12,7 +12,9 @@ export const userServiceCreate = async (userDetails) => {
     const newUser = await Users.create(userDetails);
     return newUser.toJSON();
   } catch(error) {
-    console.log('error in create', error)
+    return res.status(500).json({
+      error: 'Internal server error'
+    });
   }
 }
 
@@ -42,11 +44,12 @@ export const updateUser = async (userId, userDetails) => {
 
 export const getUser = async (condition) => {
   try{
-  console.log('get user', condition)
   const user = await Users.findOne({ where: condition })
   return user ? user.toJSON(): user;
   } catch (err) {
-    console.log('erer:', err)
+    return res.status(500).json({
+      error: 'Internal server error'
+    });
   }
 };
 

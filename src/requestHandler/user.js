@@ -16,7 +16,6 @@ const userHandler = {
             const verifiedUser = await verifyTokenAndCompleteSignup(req.params.token);
             return res.status(verifiedUser.status).json(verifiedUser);
           } catch (error) {
-            console.log('error', error)
             return res.status(500).json({
               error: 'Internal server error'
             });
@@ -27,7 +26,6 @@ const userHandler = {
           const signedInUser = await signinUser(req.body);
           return res.status(signedInUser.status).json(signedInUser);
         } catch (error) {
-          console.log('error signining in', error)
           return res.status(500).json({
             error: 'Internal server error'
           });
