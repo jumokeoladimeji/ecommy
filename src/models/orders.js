@@ -40,7 +40,8 @@ export default (sequelize, DataTypes) => {
     shipping_phone_number: DataTypes.STRING,
     payment_id: DataTypes.INTEGER,
     stripe_charge_id: DataTypes.INTEGER,
-    extra_notes: DataTypes.STRING
+    extra_notes: DataTypes.STRING,
+    paid: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'Orders',

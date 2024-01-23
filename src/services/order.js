@@ -2,7 +2,6 @@ import db from '../models';
 const { Orders, CardOrderDetails, Addresses } = db;
   
 export const createOrder = async (orderDetails) => {
-    console.log('orderDetails', orderDetails)
     const newAddress = await Addresses.create({
         user_id: orderDetails.user_id,
         address1: orderDetails.address1,
@@ -26,10 +25,10 @@ export const createOrder = async (orderDetails) => {
         payment_id: orderDetails.payment_id,
         stripe_charge_id: orderDetails.stripe_charge_id,
         extra_notes: orderDetails.extra_notes,
+        paid: orderDetails.paid
     }
 
     const newOrder = await Orders.create(orderToCreate);
-    console.log('newOrder', newOrder)
     const orderCreated = newOrder.toJSON()
     const cardOrderDetail = await CardOrderDetails.create({
         // card_id: cardId,// make it an array orchange to cart details
