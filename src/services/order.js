@@ -78,15 +78,17 @@ export const listOrdersByUser = async (userId) => {
   * @description - Fetches a order
 */
 export const getOneOrder = async (orderId) => {
-    const order = await Orders.findOne({ where: { id: orderId }}, 
+    console.log('order opoppo')
+    const order = await Orders.findOne(
         {
+            where: { id: orderId },
             include: [{
-                model: CardOrderDetails,
-                as: 'card_order_details',
+                model: Addresses,
+                as: 'addresses'
             },
             {
-                model: Addresses,
-                as: 'addresses',
+                model: CardOrderDetails,
+                as: 'card_order_details'
             }]
         }
     );
@@ -103,13 +105,13 @@ export const getOneOrder = async (orderId) => {
 * @description - Updates Order details
 */
 export const updateOrder = async (orderDetails, orderId) => {
-    const order = await Orders.findOne({
-        where: { id: orderId }}, 
+    const order = await Orders.findOne(
         {
+            where: { id: orderId },
             include: [{
                 model: Addresses,
                 as: 'addresses'
-            }, 
+            },
             {
                 model: CardOrderDetails,
                 as: 'card_order_details'
@@ -148,13 +150,7 @@ export const updateOrder = async (orderDetails, orderId) => {
  * @description - Deletes an Order
 */
 export const destroyOrder = async (orderId) => {
-    const order = await Orders.findOne({ where: { id: orderId }},
-        {
-            include: [{
-                model: CardOrderDetails,
-                as: 'cardOrderDetails',
-            }]
-    });
+    const order = await Orders.findOne({ where: { id: orderId }});
     if (!orders) {
         return {
             error: 'Orders not found',
