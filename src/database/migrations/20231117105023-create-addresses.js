@@ -16,6 +16,9 @@ export default {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
+      full_address: {
+        type: Sequelize.JSON
+      },
       address1: {
         type: Sequelize.STRING
       },

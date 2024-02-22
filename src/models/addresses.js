@@ -24,6 +24,15 @@ export default (sequelize, DataTypes) => {
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
     },
+    full_address:  {
+      type: DataTypes.JSON,
+      get() {
+        return JSON.parse(this.getDataValue("full_address"));
+      },
+      set(value) {
+        return this.setDataValue("full_address", JSON.stringify(value));
+      }
+    }, 
     address1: DataTypes.STRING,
     address2: DataTypes.STRING,
     city: DataTypes.STRING,
