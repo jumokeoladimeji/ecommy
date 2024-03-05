@@ -12,14 +12,14 @@ export default (sequelize, DataTypes) => {
         foreignKey: 'cart',
         as: 'cart'
       });
-      this.hasMany(models.Orders, {
-        foreignKey: 'user_id',
-        as: 'orders'
-      });
-      this.hasMany(models.Addresses, {
-        foreignKey: 'user_id',
-        as: 'addresses'
-      });
+      // this.hasMany(models.Orders, {
+      //   foreignKey: 'user_id',
+      //   as: 'orders'
+      // });
+      // this.hasMany(models.Addresses, {
+      //   foreignKey: 'user_id',
+      //   as: 'addresses'
+      // });
       this.hasMany(models.BillingInfo, {
         foreignKey: 'user_id',
         as: 'billing_infos'

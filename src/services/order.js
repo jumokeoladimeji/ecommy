@@ -3,18 +3,20 @@ const { Orders, CardOrderDetails, Addresses } = db;
   
 export const createOrder = async (orderDetails) => {
     const newAddress = await Addresses.create({
-        user_id: orderDetails.user_id,
+        // user_id: orderDetails.user_id,
         address1: orderDetails.address1,
         address2: orderDetails.address2,
         city: orderDetails.city,
         state: orderDetails.state,
         zip: orderDetails.zip,
         country: "United States",
+        full_address: orderDetails.full_address,
     })
-
     const address = newAddress.toJSON()
+    console.log('address after create:::', address)
     const orderToCreate = {
-        user_id: orderDetails.user_id,
+        // user_id: orderDetails.user_id,
+        email: orderDetails.email,
         expected_time_of_delivery: orderDetails.expected_time_of_delivery,
         status: orderDetails.status,
         confirm_delivery: orderDetails.confirm_delivery,
@@ -51,7 +53,8 @@ export const listOrders = async () => {
         {
             model: CardOrderDetails,
             as: 'card_order_details'
-        }]
+        }],
+        order: [['updatedAt', 'DESC']]
     });
     return orders;
 };
@@ -59,18 +62,19 @@ export const listOrders = async () => {
 
 export const listOrdersByUser = async (userId) => {
     const orders = await Orders.findAll({
-        where: { user_id: userId }}, {
-            include: [{
-                model: CardOrderDetails,
-                as: 'card_order_details',
-            },
-            {
-                model: Addresses,
-                as: 'addresses',
-            }]
-        }
-    );
-    return Orders;
+        where: { user_id: userId }}, 
+        {
+        include: [{
+            model: CardOrderDetails,
+            as: 'card_order_details',
+        },
+        {
+            model: Addresses,
+            as: 'addresses',
+        }],
+        order: [['updatedAt', 'DESC']]
+    });
+    return orders;
 };
 
 
@@ -143,7 +147,7 @@ export const updateOrder = async (orderDetails, orderId) => {
         orderToEdiT,
         { where: { id:  orderId } }
     )
-
+    console.log('edit complete')
     return orderToEdiT;
 };
 

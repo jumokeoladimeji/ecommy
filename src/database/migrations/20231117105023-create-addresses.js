@@ -9,13 +9,13 @@ export default {
         type: Sequelize.UUID,
         defaultValue: uuidv4(),
       },
-      user_id: {
-        type: Sequelize.UUID,
-        allowNull: false,
-        references: { model: 'Users', key: 'id', as: 'user_id'},
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
+      // user_id: {
+      //   type: Sequelize.UUID,
+      //   allowNull: false,
+      //   references: { model: 'Users', key: 'id', as: 'user_id'},
+      //   onUpdate: 'CASCADE',
+      //   onDelete: 'CASCADE',
+      // },
       full_address: {
         type: Sequelize.JSON
       },

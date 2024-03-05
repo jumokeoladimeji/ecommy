@@ -4,13 +4,14 @@ const orderHandler = {
     create: async(req, res) => {
         try {
             const orderDetails = req.body
-            orderDetails['user_id'] = req.decoded.id
+            // orderDetails['user_id'] = req.decoded.id
             const createdOrder = await createOrder(orderDetails);
             if (createdOrder.error) {
                 return res.json({ status: 500, error: createdOrder.error });
             }
             return res.status(201).json({ status: 201, message: 'Order Created Successfully', data: createdOrder });
           } catch (error) {
+            console.log('error', error)
             return res.status(500).json({
               error: 'Internal server error'
             });
@@ -24,6 +25,7 @@ const orderHandler = {
           }
           return res.status(200).json({ status: 200, message: 'Orders Returned Successfully', data: orders });
         } catch (error) {
+          console.log('error', error)
           return res.status(500).json({
             error: 'Internal server error'
           });
@@ -56,6 +58,7 @@ const orderHandler = {
         }
     },
     update: async(req, res) => {
+      console.log('about to update')
         try {
             const updatedOrder = await updateOrder(req.body, req.params.orderId);
             if (updatedOrder.error) {
@@ -63,6 +66,7 @@ const orderHandler = {
             }
             return res.status(200).json({ status: 200, message: 'Order Updated Successfully', data: updatedOrder });
           } catch (error) {
+            console.log('error', error)
             return res.status(500).json({
               error: 'Internal server error'
             });

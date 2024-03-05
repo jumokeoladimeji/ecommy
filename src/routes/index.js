@@ -11,7 +11,7 @@ export default (app) => {
     app.use(cors());
     app.use('/api/v1/users', userRouter)
     app.use('/api/v1/categories', categoryRouter)
-    app.use('/api/v1', orderRouter)
+    app.use('/api/v1/orders', orderRouter)
     app.use('/api/v1/cards', cardRouter)
     app.use('/api/v1/stripe', stripeWebhookListenerRouter)
     app.get('/', (req, res) => {
@@ -19,10 +19,16 @@ export default (app) => {
     })
 
     app.use((err, req, res, next) => {
-        res.status(500).json({error: 'an error occurred'});
+        if(err) {
+            console.log('test', err)
+        }
+        console.log('it has done', res)
+       return  res.status(500).json({error: 'an error occurred'});
     })
-    app.get('*', (req, res) => res.status(404).send({
+    app.get('*', (req, res) => {
+        console.log('about to send 404')
+        return res.status(404).send({
         status: 404,
         message: 'Nothing to see here',
-    }))   
+    })})   
 }

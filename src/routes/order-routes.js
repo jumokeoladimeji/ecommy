@@ -5,11 +5,11 @@ import { verifyToken } from '../middleware/authentication.js';
 const orderRouter = express.Router();
 
 orderRouter
-  .post('/orders', verifyToken, orderHandler.create)
-  .get('/orders', verifyToken, orderHandler.getAll) // admin
-  .get('/users/:userId/orders ', verifyToken, orderHandler.getUserOrders)
-  .get('/orders/:orderId', verifyToken, orderHandler.getOne)
-  .put('/orders/:orderId', verifyToken, orderHandler.update) // can't update once paid
-  .delete('/orders/:orderId', verifyToken, orderHandler.delete) // admin
+  .post('/', orderHandler.create)
+  .get('/', verifyToken, orderHandler.getAll) // admin
+  .get('/users/:userId/orders', orderHandler.getUserOrders)
+  .get('/:orderId', orderHandler.getOne)
+  .put('/:orderId', orderHandler.update) // can't update once paid
+  .delete('/:orderId', verifyToken, orderHandler.delete) // admin
 
 export default orderRouter

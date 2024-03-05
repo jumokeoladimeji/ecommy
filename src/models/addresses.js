@@ -8,10 +8,10 @@ export default (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.Users, {
-        foreignKey: 'user_id',
-        as: 'user'
-      });
+      // this.belongsTo(models.Users, {
+      //   foreignKey: 'user_id',
+      //   as: 'user'
+      // });
       this.hasMany(models.Orders, {
         foreignKey: 'address_id',
         as: 'orders'

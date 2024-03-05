@@ -8,10 +8,10 @@ export default (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.Users, {
-        foreignKey: 'user_id',
-        as: 'user'
-      });
+      // this.belongsTo(models.Users, {
+      //   foreignKey: 'user_id',
+      //   as: 'user'
+      // });
       // this.hasMany(models.Cards, {
       //   foreignKey: 'order_id',
       //   as: 'cards'
@@ -44,6 +44,7 @@ export default (sequelize, DataTypes) => {
     payment_id: DataTypes.INTEGER,
     stripe_charge_id: DataTypes.INTEGER,
     extra_notes: DataTypes.STRING,
+    email: DataTypes.STRING,
     paid: {
       type: DataTypes.BOOLEAN,
       defaultValue: false

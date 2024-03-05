@@ -9,13 +9,13 @@ export default {
         type: Sequelize.UUID,
         defaultValue: uuidv4(),
       },
-      user_id: {
-        type: Sequelize.UUID,
-        allowNull: false,
-        references: { model: 'Users', key: 'id', as: 'user_id'},
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
+      // user_id: {
+      //   type: Sequelize.UUID,
+      //   allowNull: false,
+      //   references: { model: 'Users', key: 'id', as: 'user_id'},
+      //   onUpdate: 'CASCADE',
+      //   onDelete: 'CASCADE',
+      // },
       expected_time_of_delivery: {
         type: Sequelize.DATE
       },
@@ -56,6 +56,9 @@ export default {
       },
       stripe_charge_id: {
         type: Sequelize.INTEGER
+      },
+      email: {
+        type: Sequelize.STRING
       },
       extra_notes: {
         type: Sequelize.STRING
